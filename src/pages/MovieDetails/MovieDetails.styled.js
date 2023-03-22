@@ -10,7 +10,8 @@ export const MovieDescr = styled.div`
 export const MovieInfo = styled.div`
   border-bottom: 1px gray solid;
   display: flex;
-  padding: 10px;
+  padding: 16px;
+  height: 450px;
 `;
 
 export const StyledNavLink = styled(NavLink)`

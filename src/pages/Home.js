@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getTrendingMovies } from 'utils/service-api';
-import Loader from 'components/Skeleton/Skeleton';
 import MovieList from 'components/MovieList/MovieList';
 
 const Home = () => {
@@ -17,11 +16,14 @@ const Home = () => {
   }, []);
 
   return (
-    <main>
-      {isLoading && <Loader />}
-      <h2>Trending Movies Today</h2>
-      {<MovieList movies={trendingMovies} />}
-    </main>
+    <>
+      {!isLoading && trendingMovies && (
+        <>
+          <h2>Trending Movies Today</h2>
+          <MovieList movies={trendingMovies} />
+        </>
+      )}
+    </>
   );
 };
 

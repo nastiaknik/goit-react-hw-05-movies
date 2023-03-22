@@ -16,88 +16,90 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(isLoading => !isLoading);
-
+    setIsLoading(true);
     getMovieDetails(id)
       .then(setMovie)
       .catch(error => console.log(error))
-      .finally(setIsLoading(isLoading => !isLoading));
+      .finally(() => setIsLoading(false));
   }, [id]);
 
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
+  console.log(backLinkLocationRef);
 
   return (
     <>
-      {isLoading && <Loader />}
-      <Link to={backLinkLocationRef.current}>
-        <StyledArrowIcon />
-      </Link>
-      {movie && movie && (
-        <MovieInfo>
-          <img
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
-                : defaultPoster
-            }
-            alt={movie.title}
-            width="300"
-            height="450"
-            loading="lazy"
-          />
-          <MovieDescr>
-            <h2>
-              {movie.title}{' '}
-              <span style={{ fontWeight: 400 }}>
-                (
-                {movie.release_date
-                  ? movie.release_date.slice(0, 4)
-                  : 'No date'}
-                )
-              </span>
-            </h2>
-            <h3>
-              User Score:{' '}
-              <span style={{ fontWeight: 400 }}>
-                {movie.vote_average
-                  ? movie.vote_average.toFixed(1) * 10 + '%'
-                  : 'This movie does not have user score.'}
-              </span>
-            </h3>
-            <h3>Overview: </h3>
-            <p>{movie.overview ? movie.overview : 'No movie description'}</p>
-            <h3>
-              Genres:{' '}
-              <span style={{ fontWeight: 400 }}>
-                {movie.genres.length
-                  ? movie.genres.map(({ name }) => [name]).join(', ')
-                  : 'No genre'}
-              </span>
-            </h3>
-          </MovieDescr>
-        </MovieInfo>
+      {isLoading && <Loader page={`/movies/${id}`} />}
+      {movie && (
+        <>
+          <Link to={backLinkLocationRef.current}>
+            <StyledArrowIcon />
+          </Link>
+          <MovieInfo>
+            <img
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                  : defaultPoster
+              }
+              alt={movie.title}
+              width="300"
+              height="450"
+              loading="lazy"
+              style={{ backgroundColor: '#ebebeb' }}
+            />
+            <MovieDescr>
+              <h2>
+                {movie.title}{' '}
+                <span style={{ fontWeight: 400 }}>
+                  (
+                  {movie.release_date
+                    ? movie.release_date.slice(0, 4)
+                    : 'No date'}
+                  )
+                </span>
+              </h2>
+              <h3>
+                User Score:{' '}
+                <span style={{ fontWeight: 400 }}>
+                  {movie.vote_average
+                    ? movie.vote_average.toFixed(1) * 10 + '%'
+                    : 'This movie does not have user score.'}
+                </span>
+              </h3>
+              <h3>Overview: </h3>
+              <p>{movie.overview ? movie.overview : 'No movie description'}</p>
+              <h3>
+                Genres:{' '}
+                <span style={{ fontWeight: 400 }}>
+                  {movie.genres.length
+                    ? movie.genres.map(({ name }) => [name]).join(', ')
+                    : 'No genre'}
+                </span>
+              </h3>
+            </MovieDescr>
+          </MovieInfo>
+          <h2>Additional information</h2>
+          <ul
+            style={{
+              display: 'flex',
+              gap: '10px',
+              textAlign: 'start',
+              listStyle: 'none',
+            }}
+          >
+            <li>
+              <StyledNavLink to="cast">Cast</StyledNavLink>
+            </li>
+            <li>
+              <StyledNavLink to="reviews">Reviews</StyledNavLink>
+            </li>
+          </ul>
+          <Suspense fallback={<Loader page={location.pathname} />}>
+            <Outlet />
+          </Suspense>
+        </>
       )}
-
-      <h2>Additional information</h2>
-      <ul
-        style={{
-          display: 'flex',
-          gap: '10px',
-          textAlign: 'start',
-          listStyle: 'none',
-        }}
-      >
-        <li>
-          <StyledNavLink to="cast">Cast</StyledNavLink>
-        </li>
-        <li>
-          <StyledNavLink to="reviews">Reviews</StyledNavLink>
-        </li>
-      </ul>
-      <Suspense fallback={<Loader />}>
-        <Outlet />
-      </Suspense>
     </>
   );
 };

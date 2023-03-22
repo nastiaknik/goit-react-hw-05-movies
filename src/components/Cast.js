@@ -21,43 +21,49 @@ const Cast = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
-      <ul
-        style={{
-          listStyle: 'none',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '10px',
-        }}
-      >
-        {cast && cast.length > 0
-          ? cast.map(({ id, name, profile_path, character }) => (
-              <li
-                key={id}
-                style={{
-                  width: '300px',
-                  height: '527px',
-                  border: '1px solid gray',
-                }}
-              >
-                <img
-                  src={
-                    profile_path
-                      ? `https://image.tmdb.org/t/p/original${profile_path}`
-                      : notFound
-                  }
-                  alt={name}
-                  width="300"
-                  height="450"
-                />
-                <h2 style={{ padding: 0, margin: 0, marginBottom: '10px' }}>
-                  {name}
-                </h2>
-                <p style={{ padding: 0, margin: 0 }}>{character}</p>
-              </li>
-            ))
-          : 'Cast not known.'}
-      </ul>
+      {isLoading && <Loader page={`/movies/${id}/cast`} />}
+
+      {!isLoading && cast.length > 0 && (
+        <ul
+          style={{
+            listStyle: 'none',
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '10px',
+          }}
+        >
+          {cast.map(({ id, name, profile_path, character }) => (
+            <li
+              key={id}
+              style={{
+                width: '300px',
+                height: '527px',
+                border: '1px solid gray',
+              }}
+            >
+              <img
+                src={
+                  profile_path
+                    ? `https://image.tmdb.org/t/p/original${profile_path}`
+                    : notFound
+                }
+                alt={name}
+                width="300"
+                height="450"
+              />
+              <h2 style={{ padding: 0, margin: 0, marginBottom: '10px' }}>
+                {name}
+              </h2>
+              <p style={{ padding: 0, margin: 0 }}>{character}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!isLoading && cast.lentgh < 0 && (
+        <p style={{ textAlign: 'start', marginLeft: '40px' }}>
+          Cast not known.
+        </p>
+      )}
     </>
   );
 };

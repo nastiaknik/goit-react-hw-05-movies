@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'utils/service-api';
+import 'react-loading-skeleton/dist/skeleton.css';
 import Loader from './Skeleton/Skeleton';
 
 const Reviews = () => {
@@ -20,8 +21,7 @@ const Reviews = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
-
+      {isLoading && <Loader page={`/movies/${id}/reviews`} />}
       <ul
         style={{
           display: 'flex',
@@ -31,15 +31,21 @@ const Reviews = () => {
           gap: '10px',
         }}
       >
-        {reviews && reviews.length > 0
-          ? reviews.map(({ id, author, content }) => (
-              <li key={id}>
-                <h4>{author}</h4>
-                <p style={{ paddingRight: '30px' }}>{content}</p>
-              </li>
-            ))
-          : "We don't have any reviews about this movie yet."}
+        {!isLoading &&
+          reviews &&
+          reviews.length > 0 &&
+          reviews.map(({ id, author, content }) => (
+            <li key={id}>
+              <h4>{author}</h4>
+              <p style={{ paddingRight: '30px' }}>{content}</p>
+            </li>
+          ))}
       </ul>
+      {!isLoading && reviews && reviews.length === 0 && (
+        <p style={{ textAlign: 'start', marginLeft: '40px' }}>
+          We don't have any reviews about this movie yet.
+        </p>
+      )}
     </>
   );
 };

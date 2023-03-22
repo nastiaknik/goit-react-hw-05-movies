@@ -33,7 +33,7 @@ const Movies = () => {
   return (
     <>
       <Searchbar onSubmit={onSubmit} />
-      {loading && <Loader />}
+      {loading && <Loader page="/" />}
       {search && <MovieList movies={movies} />}
     </>
   );

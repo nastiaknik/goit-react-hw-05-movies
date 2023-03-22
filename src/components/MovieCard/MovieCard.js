@@ -18,8 +18,11 @@ export const MovieCard = ({ id, poster, title }) => {
           width="300"
           height="450"
           loading="lazy"
+          style={{ backgroundColor: '#ebebeb' }}
         />
-        <MovieTitle>{title}</MovieTitle>
+        <MovieTitle>
+          {title.length <= 45 ? title : title.slice(1, 45) + '...'}
+        </MovieTitle>
       </StyledCard>
     </StyledLink>
   );
