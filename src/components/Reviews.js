@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'utils/service-api';
-import 'react-loading-skeleton/dist/skeleton.css';
 import Loader from './Skeleton/Skeleton';
 
 const Reviews = () => {
@@ -16,8 +15,8 @@ const Reviews = () => {
         setReviews(data);
       })
       .catch(error => console.log(error))
-      .finally(setIsLoading(isLoading => !isLoading));
-  }, [id, reviews]);
+      .finally(() => setIsLoading(isLoading => !isLoading));
+  }, [id]);
 
   return (
     <>

@@ -1,9 +1,9 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import Loader from 'components/Skeleton/Skeleton';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container, StyledNavLink, Nav, Header } from './Layout.styled';
+import Loader from 'components/Skeleton/Skeleton';
+import { Container, Header, Nav, StyledNavLink, Main } from './Layout.styled';
 
 export const Layout = () => {
   const location = useLocation();
@@ -16,11 +16,11 @@ export const Layout = () => {
           <StyledNavLink to="/movies">Movies</StyledNavLink>
         </Nav>
       </Header>
-      <main>
+      <Main>
         <Suspense fallback={<Loader page={location.pathname} />}>
           <Outlet />
         </Suspense>
-      </main>
+      </Main>
       <ToastContainer />
     </Container>
   );

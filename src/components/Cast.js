@@ -16,7 +16,7 @@ const Cast = () => {
         setCast(data);
       })
       .catch(error => console.log(error))
-      .finally(setIsLoading(isLoading => !isLoading));
+      .finally(() => setIsLoading(isLoading => !isLoading));
   }, [id]);
 
   return (
@@ -59,7 +59,7 @@ const Cast = () => {
           ))}
         </ul>
       )}
-      {!isLoading && cast.lentgh < 0 && (
+      {!isLoading && cast.length < 0 && (
         <p style={{ textAlign: 'start', marginLeft: '40px' }}>
           Cast not known.
         </p>

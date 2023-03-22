@@ -1,12 +1,7 @@
+import { StyledNavLink } from './NotFound.styled';
 import Page404 from '../../components/defaultImages/404-page.png';
-import { StyledNavLink, BtnList } from './NotFound.styled';
-/* import { useLocation } from 'react-router-dom';
-import { useRef } from 'react'; */
 
 const NotFound = () => {
-  /*   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/');
-  console.log(backLinkLocationRef); */
   return (
     <>
       <img
@@ -15,16 +10,7 @@ const NotFound = () => {
         width="548"
         height="372"
       />
-      <BtnList>
-        {/*         <li>
-          <StyledNavLink to={backLinkLocationRef.current}>
-            Go back
-          </StyledNavLink>
-        </li> */}
-        <li>
-          <StyledNavLink to="/">Go home</StyledNavLink>
-        </li>
-      </BtnList>
+      <StyledNavLink to="/">Go home</StyledNavLink>
     </>
   );
 };

@@ -4,47 +4,47 @@ const KEY = '53262c5d6ff8109487cc66546be6258b';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const getTrendingMovies = async () => {
-  const response = await axios(`${BASE_URL}/trending/movie/day`, {
+  const { data } = await axios(`${BASE_URL}/trending/movie/day`, {
     params: {
       api_key: KEY,
     },
   });
-  return response.data;
+  return data;
 };
 
 export const searchMovie = async query => {
-  const response = await axios(`${BASE_URL}/search/movie`, {
+  const { data } = await axios(`${BASE_URL}/search/movie`, {
     params: {
       api_key: KEY,
       query,
     },
   });
-  return response.data.results;
+  return data;
 };
 
 export const getMovieDetails = async movieId => {
-  const response = await axios(`${BASE_URL}/movie/${movieId}`, {
+  const { data } = await axios(`${BASE_URL}/movie/${movieId}`, {
     params: {
       api_key: KEY,
     },
   });
-  return response.data;
+  return data;
 };
 
 export const getCast = async movieId => {
-  const response = await axios(`${BASE_URL}/movie/${movieId}/credits`, {
+  const { data } = await axios(`${BASE_URL}/movie/${movieId}/credits`, {
     params: {
       api_key: KEY,
     },
   });
-  return response.data.cast;
+  return data.cast;
 };
 
 export const getReviews = async movieId => {
-  const response = await axios(`${BASE_URL}/movie/${movieId}/reviews`, {
+  const { data } = await axios(`${BASE_URL}/movie/${movieId}/reviews`, {
     params: {
       api_key: KEY,
     },
   });
-  return response.data.results;
+  return data.results;
 };

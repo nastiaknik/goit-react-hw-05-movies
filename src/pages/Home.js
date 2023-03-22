@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { getTrendingMovies } from 'utils/service-api';
+import { toast } from 'react-toastify';
 import MovieList from 'components/MovieList/MovieList';
+import { getTrendingMovies } from 'utils/service-api';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -10,7 +11,12 @@ const Home = () => {
     setIsLoading(isLoading => !isLoading);
 
     getTrendingMovies()
-      .then(data => setTrendingMovies(data.results))
+      .then(data => {
+        setTrendingMovies(data.results);
+        if (!data.results) {
+          return toast.error('Sorry, there are no trending movies for today.');
+        }
+      })
       .catch(error => console.log(error))
       .finally(setIsLoading(isLoading => !isLoading));
   }, []);
@@ -19,7 +25,7 @@ const Home = () => {
     <>
       {!isLoading && trendingMovies && (
         <>
-          <h2>Trending Movies Today</h2>
+          <h2 style={{ marginTop: 0 }}>Trending Movies Today</h2>
           <MovieList movies={trendingMovies} />
         </>
       )}

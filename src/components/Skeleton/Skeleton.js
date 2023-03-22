@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
+import { useParams } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { StyledSkeleton } from './Skeleton.styled';
-import { useParams } from 'react-router-dom';
 
 const Loader = ({ page }) => {
   const { id } = useParams();
@@ -15,11 +16,9 @@ const Loader = ({ page }) => {
           </BoxTrending>
         </div>
       );
-      break;
 
     case '/movies':
       return <Skeleton count={1} width={300} height={40} />;
-      break;
 
     case `/movies/${id}`:
       return (
@@ -63,7 +62,6 @@ const Loader = ({ page }) => {
           </BoxDetails>
         </div>
       );
-      break;
 
     case `/movies/${id}/reviews`:
       return (
@@ -85,7 +83,6 @@ const Loader = ({ page }) => {
           />
         </div>
       );
-      break;
 
     case `/movies/${id}/cast`:
       return (
@@ -93,7 +90,13 @@ const Loader = ({ page }) => {
           <StyledSkeleton count={20} width={302} height={527} inline={true} />
         </BoxTrending>
       );
-      break;
+
+    case 'search-movie':
+      return (
+        <BoxTrending>
+          <StyledSkeleton count={20} width={302} height={527} inline={true} />
+        </BoxTrending>
+      );
 
     default:
       return (
@@ -140,6 +143,18 @@ const BoxDetails = ({ children }) => {
       {children}
     </div>
   );
+};
+
+Loader.propTypes = {
+  page: PropTypes.string.isRequired,
+};
+
+BoxTrending.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+BoxDetails.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Loader;

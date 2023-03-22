@@ -1,5 +1,5 @@
-import { useParams, Outlet, Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef, Suspense } from 'react';
+import { useParams, Outlet, Link, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'utils/service-api';
 import Loader from 'components/Skeleton/Skeleton';
 import {
@@ -25,7 +25,6 @@ const MovieDetails = () => {
 
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
-  console.log(backLinkLocationRef);
 
   return (
     <>

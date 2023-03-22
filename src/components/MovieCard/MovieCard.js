@@ -1,6 +1,6 @@
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { MovieTitle, StyledCard, StyledLink } from './MovieCard.styled';
+import { useLocation } from 'react-router-dom';
+import { StyledLink, StyledCard, Img, MovieTitle } from './MovieCard.styled';
 import defaultPoster from '../../components/defaultImages/default-movie.jpg';
 
 export const MovieCard = ({ id, poster, title }) => {
@@ -8,7 +8,7 @@ export const MovieCard = ({ id, poster, title }) => {
   return (
     <StyledLink to={`/movies/${id}`} state={{ from: location }}>
       <StyledCard>
-        <img
+        <Img
           src={
             poster
               ? `https://image.tmdb.org/t/p/original${poster}`
@@ -18,7 +18,6 @@ export const MovieCard = ({ id, poster, title }) => {
           width="300"
           height="450"
           loading="lazy"
-          style={{ backgroundColor: '#ebebeb' }}
         />
         <MovieTitle>
           {title.length <= 45 ? title : title.slice(1, 45) + '...'}
@@ -30,6 +29,6 @@ export const MovieCard = ({ id, poster, title }) => {
 
 MovieCard.propTypes = {
   id: PropTypes.number.isRequired,
-  poster_path: PropTypes.string,
+  poster: PropTypes.string,
   title: PropTypes.string.isRequired,
 };

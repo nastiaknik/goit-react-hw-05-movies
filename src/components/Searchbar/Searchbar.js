@@ -2,14 +2,15 @@ import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
 import {
   SearchForm,
-  SearchButton,
   Input,
+  SearchButton,
   SearchIcon,
 } from './Searchbar.styled';
 
 const Searchbar = ({ onSubmit }) => {
   const [searchParams] = useSearchParams();
   const search = searchParams.get('search') ?? '';
+
   return (
     <SearchForm onSubmit={onSubmit}>
       <label>
