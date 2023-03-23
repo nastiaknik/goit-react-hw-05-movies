@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'utils/service-api';
-import Loader from './Skeleton/Skeleton';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
@@ -20,7 +21,25 @@ const Reviews = () => {
 
   return (
     <>
-      {isLoading && <Loader page={`/movies/${id}/reviews`} />}
+      {isLoading && (
+        <div style={{ marginTop: '40px' }}>
+          <Skeleton
+            count={1}
+            width={100}
+            height={19}
+            style={{
+              display: 'block',
+              marginLeft: '40px',
+            }}
+          />
+          <Skeleton
+            count={1}
+            width={1290}
+            height={90}
+            style={{ margin: '0 30px 0 40px' }}
+          />
+        </div>
+      )}
       <ul
         style={{
           display: 'flex',

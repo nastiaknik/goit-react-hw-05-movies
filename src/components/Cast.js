@@ -21,7 +21,7 @@ const Cast = () => {
 
   return (
     <>
-      {isLoading && <Loader page={`/movies/${id}/cast`} />}
+      {isLoading && <Loader page={'/my-list'} />}
 
       {!isLoading && cast.length > 0 && (
         <ul

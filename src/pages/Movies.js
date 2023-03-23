@@ -65,7 +65,7 @@ const Movies = () => {
     <>
       <Searchbar onSubmit={onSubmit} />
       <div aria-busy={isLoading}>
-        {isLoading && <Loader page="search-movie" />}
+        {isLoading && <Loader page="/my-list" />}
         {search && <MovieList movies={movies} />}
       </div>
     </>

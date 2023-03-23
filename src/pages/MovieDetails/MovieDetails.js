@@ -2,11 +2,17 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useParams, Outlet, Link, useLocation } from 'react-router-dom';
 import { getMovieDetails } from 'utils/service-api';
 import Loader from 'components/Skeleton/Skeleton';
+import { toast } from 'react-toastify';
+import { IconContext } from 'react-icons';
+import { AiFillStar } from 'react-icons/ai';
 import {
   MovieInfo,
   MovieDescr,
   StyledNavLink,
   StyledArrowIcon,
+  Stars,
+  AddToMyListBtn,
+  RemoveFromMyListBtn,
 } from './MovieDetails.styled';
 import defaultPoster from '../../components/defaultImages/default-movie.jpg';
 
@@ -14,6 +20,9 @@ const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [favourites, setFavourites] = useState(
+    () => JSON.parse(localStorage.getItem('favourites')) ?? []
+  );
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,8 +32,35 @@ const MovieDetails = () => {
       .finally(() => setIsLoading(false));
   }, [id]);
 
+  useEffect(() => {
+    localStorage.setItem('favourites', JSON.stringify(favourites));
+  }, [favourites]);
+
   const location = useLocation();
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
+
+  const addMovieToMyList = movie => {
+    if (favourites.some(favourite => favourite.id === movie.id)) {
+      setFavourites(prevState => prevState.filter(({ id }) => id !== movie.id));
+      toast.success(
+        <p>
+          Movie <span style={{ color: 'green' }}>{movie.title}</span> removed
+          from My List!
+        </p>
+      );
+      return;
+    }
+    setFavourites(prevState => [
+      ...prevState.filter(({ id }) => id !== movie.id),
+      movie,
+    ]);
+    toast.success(
+      <p>
+        Movie <span style={{ color: 'green' }}>{movie.title}</span> added to My
+        List!
+      </p>
+    );
+  };
 
   return (
     <>
@@ -65,6 +101,23 @@ const MovieDetails = () => {
                     ? movie.vote_average.toFixed(1) * 10 + '%'
                     : 'This movie does not have user score.'}
                 </span>
+                <Stars>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => (
+                    <IconContext.Provider
+                      key={index}
+                      value={{
+                        size: 40,
+                        color: `${
+                          index >= Math.floor(movie.vote_average.toFixed(0))
+                            ? '#ccc'
+                            : 'orange'
+                        }`,
+                      }}
+                    >
+                      <AiFillStar />
+                    </IconContext.Provider>
+                  ))}
+                </Stars>
               </h3>
               <h3>Overview: </h3>
               <p>{movie.overview ? movie.overview : 'No movie description'}</p>
@@ -76,6 +129,15 @@ const MovieDetails = () => {
                     : 'No genre'}
                 </span>
               </h3>
+              {!favourites.some(fav => movie.id === fav.id) ? (
+                <AddToMyListBtn onClick={() => addMovieToMyList(movie)}>
+                  Add to My List
+                </AddToMyListBtn>
+              ) : (
+                <RemoveFromMyListBtn onClick={() => addMovieToMyList(movie)}>
+                  Remove from My List
+                </RemoveFromMyListBtn>
+              )}
             </MovieDescr>
           </MovieInfo>
           <h2>Additional information</h2>
