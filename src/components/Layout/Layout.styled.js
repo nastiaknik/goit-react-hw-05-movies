@@ -40,4 +40,5 @@ export const StyledNavLink = styled(NavLink)`
 
 export const Main = styled.main`
   padding-top: 70px;
+  width: 100%;
 `;

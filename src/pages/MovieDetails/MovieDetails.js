@@ -101,23 +101,25 @@ const MovieDetails = () => {
                     ? movie.vote_average.toFixed(1) * 10 + '%'
                     : 'This movie does not have user score.'}
                 </span>
-                <Stars>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => (
-                    <IconContext.Provider
-                      key={index}
-                      value={{
-                        size: 40,
-                        color: `${
-                          index >= Math.floor(movie.vote_average.toFixed(0))
-                            ? '#ccc'
-                            : 'orange'
-                        }`,
-                      }}
-                    >
-                      <AiFillStar />
-                    </IconContext.Provider>
-                  ))}
-                </Stars>
+                {movie.vote_average ? (
+                  <Stars>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => (
+                      <IconContext.Provider
+                        key={index}
+                        value={{
+                          size: 40,
+                          color: `${
+                            index >= Math.floor(movie.vote_average.toFixed(0))
+                              ? '#ccc'
+                              : 'orange'
+                          }`,
+                        }}
+                      >
+                        <AiFillStar />
+                      </IconContext.Provider>
+                    ))}
+                  </Stars>
+                ) : null}
               </h3>
               <h3>Overview: </h3>
               <p>{movie.overview ? movie.overview : 'No movie description'}</p>
