@@ -31,6 +31,7 @@ const Movies = () => {
       toast.warning('Please type name of the movie!', {
         toastId: 'pls-do-not-duplicate',
       });
+      setIsLoading(false);
       return;
     }
     if (!search) {
@@ -72,7 +73,6 @@ const Movies = () => {
           );
         }
         setTotalPages(data.total_pages);
-        console.log(page);
         if (currentPage === 1) {
           setMovies(data.results);
         } else {
