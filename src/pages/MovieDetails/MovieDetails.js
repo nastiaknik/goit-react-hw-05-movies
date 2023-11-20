@@ -14,7 +14,7 @@ import {
   AddToMyListBtn,
   RemoveFromMyListBtn,
 } from './MovieDetails.styled';
-import defaultPoster from '../../components/defaultImages/default-movie.jpg';
+import defaultPoster from '../../assets/default-movie.jpg';
 
 const MovieDetails = () => {
   const { id } = useParams();

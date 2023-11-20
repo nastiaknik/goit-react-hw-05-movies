@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { StyledLink, StyledCard, Img, MovieTitle } from './MovieCard.styled';
-import defaultPoster from '../../components/defaultImages/default-movie.jpg';
+import defaultPoster from '../../assets/default-movie.jpg';
 
 export const MovieCard = ({ id, poster, title }) => {
   const location = useLocation();

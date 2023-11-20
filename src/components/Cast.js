@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'utils/service-api';
 import Loader from './Skeleton/Skeleton';
-import notFound from './defaultImages/notFound.webp';
+import notFound from '../assets/notFound.webp';
 
 const Cast = () => {
   const [cast, setCast] = useState([]);

@@ -1,5 +1,5 @@
 import { StyledNavLink } from './NotFound.styled';
-import Page404 from '../../components/defaultImages/404-page.png';
+import Page404 from '../../assets/404-page.png';
 
 const NotFound = () => {
   return (
